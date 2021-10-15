@@ -30,6 +30,7 @@ ebtn.style.display = 'none';
 
 const wd = parseInt(window.getComputedStyle(circle).getPropertyValue('width'), 10);
 const ht = parseInt(window.getComputedStyle(circle).getPropertyValue('height'), 10);
+range.value = '100';
 
 const sizing = function () {
     let i_value = range.value / 100;
