@@ -11,6 +11,7 @@ const ebtn = document.getElementById('e_btn');
 const range = document.getElementById('range');
 const square = document.getElementById('square');
 const circle = document.getElementById('circle');
+const span = document.getElementById('range-span');
 
 text.value = 'Khaki';
 
@@ -31,12 +32,12 @@ ebtn.style.display = 'none';
 const wd = parseInt(window.getComputedStyle(circle).getPropertyValue('width'), 10);
 const ht = parseInt(window.getComputedStyle(circle).getPropertyValue('height'), 10);
 range.value = '100';
-
+span.textContent = '100%';
 const sizing = function () {
     let i_value = range.value / 100;
-
+    span.textContent = range.value + '%';
     circle.style.width = wd*i_value + 'px';
     circle.style.height = ht*i_value + 'px';
 }
 
-range.addEventListener('input', sizing)
+range.addEventListener('input', sizing);
