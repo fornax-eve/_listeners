@@ -1,70 +1,41 @@
-// const btn = document.getElementById('btn');
-// const square = document.getElementById('square');
-// const text = document.getElementById('text');
-// const span = document.getElementById('text-span');
-// const range = document.getElementById('range');
-// const rspan = document.getElementById('range-span');
-//
-// const logger = function (event) {
-//     // console.log('Click admitted!')
-//     console.log(event.type)
-//     console.log(event.target.value)
-//     rspan.textContent = event.target.value;
-// }
-//
-// // square.addEventListener('click', logger);
-// // square.addEventListener('mousedown', logger);
-// // square.addEventListener('mouseup', logger);
-// // square.addEventListener('mousemove', logger);
-// // square.addEventListener('mouseenter', logger);
-// // square.addEventListener('mouseleave', logger);
-// //события mouseover mouseout реагируют на вложенные элементы
-// //mouseenter, mouseleave реагируют только на элемент предназначения
-// // square.addEventListener('mouseover', logger);
-// // square.addEventListener('mouseout', logger);
-//
-// // text.addEventListener('input', logger);
-// // text.addEventListener('focus', logger);
-// // text.addEventListener('blur', logger);
-// //когда введено новое значение в input - событие change
-// // text.addEventListener('change', logger);
-// // text.addEventListener('keyup', logger);
-// // text.addEventListener('keydown', logger);
-//
-// range.addEventListener('input', logger);
-// // range.addEventListener('change', logger);
-//
-// document.addEventListener('DOMContentLoaded', () => {
-//     console.log("DOM построен")
-// });
+'use strict';
 
-//  ************************  PREVENTDEFAULT  ************************
+// 1) Повесить на кнопку обработчик события click и реализовать такой функционал:
+//     В input[type=text] можно ввести цвет: red, green, blue и так далее.
+//     По нажатию на кнопку необходимо брать этот цвет и добавлять его свойству style="backgroundColor: " квадрата.
+// Работать должно так: ввели в input[type=text] yellow, по нажатию на кнопку значение input[type=text] попадает в свойство style="backgroundColor: yellow" и фон квадрата должен поменяться
 
-// const link = document.querySelector('.controls > a')
-//
-// link.addEventListener('click', function (event) {
-//     event.preventDefault()
-//     console.log('just has been made the click by the link')
-// })
-//
-// document.addEventListener('contextmenu', function (event) {
-//     event.preventDefault();
-//     console.log('Запрет действует')
-// })
-
-//  ************************  ВСПЛЫТИЕ И ПЕРЕХВАТ  ************************
-
-const btn = document.getElementById('e_btn');
-const circle = document.getElementById('circle');
+const text = document.getElementById('text');
+const btn = document.getElementById('btn');
+const ebtn = document.getElementById('e_btn');
+const range = document.getElementById('range');
 const square = document.getElementById('square');
+const circle = document.getElementById('circle');
 
-const toggler = function (event) {
-    // event.stopPropagation();
-    console.log(event.target)
-    console.log(event.currentTarget)
-    event.target.classList.toggle('green')
+text.value = 'Khaki';
+
+const adding = function () {
+    square.style.backgroundColor = text.value;
 }
 
-btn.addEventListener('click', toggler)
-circle.addEventListener('click', toggler)
-square.addEventListener('click', toggler)
+btn.addEventListener('click', adding)
+
+// 2) В кружке (который внутри квадрата) есть кнопка. Дать ей свойство style="display: none; "
+
+ebtn.style.display = 'none';
+
+// 3) Повесить на input[type=range] обработчик события input и реализовать такой функционал:
+//
+//     при каждом изменении положения ползунка значение input[type=range] необходимо заносить в свойства ширины и высоты кружка (который внутри квадрата) (height и width) (в процентах!!)
+
+const wd = parseInt(window.getComputedStyle(circle).getPropertyValue('width'), 10);
+const ht = parseInt(window.getComputedStyle(circle).getPropertyValue('height'), 10);
+
+const sizing = function () {
+    let i_value = range.value / 100;
+
+    circle.style.width = wd*i_value + 'px';
+    circle.style.height = ht*i_value + 'px';
+}
+
+range.addEventListener('input', sizing)
